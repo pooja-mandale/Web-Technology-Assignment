@@ -273,3 +273,88 @@ button:active {
     font-size: 1.4rem;
   }
 }
+
+/* ==========================================================================
+   Popup Toast Notifications
+   ========================================================================== */
+.popup-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.popup-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  font-weight: 600;
+  max-width: 380px;
+  animation: popupSlideIn 0.3s ease forwards;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup-toast.toast-success {
+  background-color: var(--success-bg);
+  color: var(--success-color);
+  border: 1px solid var(--success-border);
+}
+
+.popup-toast.toast-error {
+  background-color: var(--error-bg);
+  color: var(--error-color);
+  border: 1px solid var(--error-border);
+}
+
+.popup-toast.toast-info {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border: 1px solid #bfdbfe;
+}
+
+.popup-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0 0.25rem;
+  margin-left: auto;
+  line-height: 1;
+}
+
+.popup-close:hover {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .popup-container {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  .popup-toast {
+    max-width: 100%;
+  }
+}

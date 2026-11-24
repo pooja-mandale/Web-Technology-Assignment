@@ -12,13 +12,16 @@
       <a href="../index.html" class="back-link">
         <span aria-hidden="true">&larr;</span> Back to Home
       </a>
+      <button type="button" class="logout-btn" onclick="logout()" title="Log out">
+        Logout
+      </button>
     </nav>
 
     <main class="content-container">
       <header class="page-header">
-        <span class="badge">Module 02</span>
+        <span class="badge" id="userBadge">Module 02</span>
         <h1>Student Marks Details</h1>
-        <p class="subtitle">Academic records, CET scores, and technical specialization for 10 students.</p>
+        <p class="subtitle">Academic records, CET scores, and technical specialization for 10 registered students.</p>
       </header>
 
       <div class="table-card">
@@ -26,16 +29,16 @@
         <div class="table-card-header">
           <div class="header-left">
             <h2 class="card-title">Student Records</h2>
-            <span id="recordCount" class="record-count">Total: 10 Records</span>
+            <span id="recordCount" class="record-count">10 Students</span>
           </div>
 
-          <!-- Search Input: by name, roll number, or mobile -->
+          <!-- Search Box -->
           <div class="search-box">
             <span class="search-icon" aria-hidden="true">&#128269;</span>
             <input 
               type="text" 
               id="searchInput" 
-              placeholder="Search by name, roll no, mobile..." 
+              placeholder="Search by name, roll, CET..." 
               oninput="handleSearch(this.value)"
               autocomplete="off"
             >
@@ -47,20 +50,23 @@
           <table class="students-table">
             <thead>
               <tr>
-                <th scope="col" class="text-center sortable" data-sort="roll" onclick="handleSort('roll')" title="Sort by Roll No">
+                <th scope="col" class="text-center sortable" data-sort="roll" onclick="handleSort('roll')" title="Click to sort by Roll No">
                   Roll No <span class="sort-arrow">▲</span>
                 </th>
-                <th scope="col" class="sortable" data-sort="name" onclick="handleSort('name')" title="Sort by Student Name">
+                <th scope="col" class="sortable" data-sort="name" onclick="handleSort('name')" title="Click to sort by Name">
                   Student Name <span class="sort-arrow">↕</span>
                 </th>
                 <th scope="col">Mob No</th>
-                <th scope="col" class="text-center sortable" data-sort="score" onclick="handleSort('score')" title="Sort by CET Score">
+                <th scope="col" class="text-center sortable" data-sort="score" onclick="handleSort('score')" title="Click to sort by CET Score">
                   CET Score <span class="sort-arrow">↕</span>
                 </th>
-                <th scope="col">Area of Interest</th>
+                <th scope="col" class="sortable" data-sort="interest" onclick="handleSort('interest')" title="Click to sort by Area of Interest">
+                  Area of Interest <span class="sort-arrow">↕</span>
+                </th>
               </tr>
             </thead>
             <tbody id="tableBody">
+              <!-- Rendered dynamically by students.js (10 student records) -->
               <tr>
                 <td class="text-center roll-col">1</td>
                 <td class="name-col">Amit</td>
@@ -138,7 +144,9 @@
         <!-- Pagination Bar -->
         <div class="pagination-bar">
           <div class="pagination-info">
-            <span id="pageInfo">Page 1 of 2</span>
+            <span id="pageInfo">Showing 1–5 of 10</span>
+            <span class="dot-separator">&bull;</span>
+            <span id="pageNumber">Page 1 of 2</span>
           </div>
 
           <div class="pagination-actions">

@@ -24,8 +24,8 @@ A front-end web development practical project developed as part of the college *
 
 This repository contains two core practical modules alongside a unified navigation landing page:
 
-- **Module 01 (Login Page):** A responsive user login card implementing interactive client-side form validation using Vanilla JavaScript. Shows success and error messages; does not redirect automatically.
-- **Module 02 (Student Marks Table):** A structured tabular display of 10 student academic records, CET scores, contact numbers, and specializations, equipped with horizontal scroll, live search (by name, roll no, mobile), multi-column sorting, and pagination (5 records per page).
+- **Module 01 (Login Page):** A responsive user login card implementing interactive client-side form validation using Vanilla JavaScript. Upon successful login, creates a session in `sessionStorage` and redirects to the Student Marks Table.
+- **Module 02 (Student Marks Table):** A protected tabular display of 10 student academic records, CET scores, contact numbers, and specializations, equipped with horizontal scroll, live search, sorting, pagination, and a Logout button. Direct access without logging in is guarded and redirected to the Login page.
 - **Project Landing Page:** A clean, professional blue-and-white portal linking both practical modules.
 
 ---
@@ -34,7 +34,7 @@ This repository contains two core practical modules alongside a unified navigati
 
 - **HTML5:** Semantic document structure (`<header>`, `<main>`, `<footer>`, `<nav>`, `<table>`, `<thead>`, `<tbody>`).
 - **CSS3:** Custom responsive layout, CSS grid, flexbox, CSS custom properties (variables), mobile-first breakpoints, and smooth transitions.
-- **JavaScript (Vanilla / ES6):** DOM selection and manipulation, event-driven form validation, dynamic message display, array filtering, sorting, and pagination.
+- **JavaScript (Vanilla / ES6):** DOM selection and manipulation, event-driven form validation, dynamic message display.
 - **External Dependencies:** None (Zero frameworks, zero external libraries, zero backend/database dependencies).
 
 ---
@@ -55,8 +55,7 @@ web-tech/
 │
 └── 02-Student-Marks/            # Module 02: Student Marks Table
     ├── students.html            # Table markup with 10 student records
-    ├── students.css             # Responsive table styling with horizontal scroll
-    └── students.js              # Search, sorting, and pagination logic
+    └── students.css             # Responsive table styling with horizontal scroll
 ```
 
 ---
@@ -68,21 +67,20 @@ web-tech/
 - **Features:**
   - Professional blue and white visual theme.
   - Header with assignment title and description.
-  - Interactive module cards with direct links to Module 01 and Module 02.
+  - Interactive module cards with feature highlights and direct links to Module 01 and Module 02.
   - Fully responsive grid layout across mobile, tablet, and desktop viewports.
 
 ### Module 01 – Login Page
 - **Folder:** `01-Login-Page/`
 - **Files:** `index.html`, `style.css`, `main.js`
 - **Form Elements:**
-  - Username / Email input (`#user`) with placeholder and accessible label.
+  - Username input (`#user`) with placeholder and accessible label.
   - Password input (`#pass`) with hidden character masking (`type="password"`).
   - Login action button (`#loginBtn`).
   - Dynamic status paragraph (`#msg`).
-  - Demo credentials alert box (`student` / `1234`).
 - **Validation Logic:**
-  - When **both** fields contain values: Displays `"Login details entered! Login successful."` (with positive green styling, no automatic redirect).
-  - When **either** field is empty: Displays `"Enter username and password."` (with error red styling).
+  - When **both** fields contain values: Displays `"Login details entered!"` (with positive green styling).
+  - When **either** field is empty: Displays `"Enter username and password."` (with warning red styling).
 - **Navigation:** Includes a `"← Back to Home"` button to navigate back to the main landing page.
 
 ### Module 02 – Student Marks Table
@@ -95,9 +93,9 @@ web-tech/
   4. `CET Score`
   5. `Area of Interest`
 - **Interactive Features:**
-  - **Live Search Filtering:** Real-time search by Student Name, Roll Number, or Mobile Number.
-  - **Multi-Column Sorting:** Click on Roll No, Student Name, or CET Score headers to toggle Ascending (▲) / Descending (▼) order.
-  - **Pagination Controls:** Shows 5 records per page by default with Previous/Next buttons, current page number, total records display, and automatic button disabling at boundaries.
+  - **Live Search Filtering:** Instantly filter records in real time by name, roll number, CET score, or area of interest.
+  - **Multi-Column Sorting:** Click on Roll No, Student Name, CET Score, or Area of Interest headers to toggle Ascending (▲) / Descending (▼) order.
+  - **Pagination Controls:** Clean pagination (5 records per page) with Previous/Next buttons and real-time record count indicators.
   - **Responsive Horizontal Scroll:** Wrapped in `.table-responsive` with `overflow-x: auto` ensuring smooth horizontal scrolling on touch devices and small screens without breaking the page layout.
 - **Dataset:** Contains exactly 10 student records from the college assignment syllabus:
   - 1: Amit (9876543210, CET: 85, Web Design)

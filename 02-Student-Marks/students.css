@@ -1,7 +1,7 @@
 /* ==========================================================================
    Module 02 Stylesheet - Student Marks Table
    Theme: Professional Blue & White
-   Features: Search Toolbar, Sortable Headers, Responsive Pagination
+   Features: Search Toolbar, Sortable Headers, Pagination Bar
    ========================================================================== */
 
 :root {
@@ -51,6 +51,9 @@ body {
 
 /* Navigation */
 .top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.75rem;
 }
 
@@ -72,6 +75,23 @@ body {
 .back-link:hover {
   background-color: #dbeafe;
   transform: translateX(-2px);
+}
+
+.logout-btn {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #fecaca;
+  color: #7f1d1d;
 }
 
 /* Header */
@@ -159,7 +179,7 @@ body {
 /* Search Box */
 .search-box {
   position: relative;
-  min-width: 270px;
+  min-width: 260px;
 }
 
 .search-icon {
@@ -363,6 +383,10 @@ body {
   gap: 0.5rem;
 }
 
+.dot-separator {
+  color: #cbd5e1;
+}
+
 .pagination-actions {
   display: flex;
   gap: 0.5rem;
@@ -431,5 +455,90 @@ body {
   .students-table td {
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
+  }
+}
+
+/* ==========================================================================
+   Popup Toast Notifications
+   ========================================================================== */
+.popup-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.popup-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  font-weight: 600;
+  max-width: 380px;
+  animation: popupSlideIn 0.3s ease forwards;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup-toast.toast-success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.popup-toast.toast-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.popup-toast.toast-info {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border: 1px solid #bfdbfe;
+}
+
+.popup-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0 0.25rem;
+  margin-left: auto;
+  line-height: 1;
+}
+
+.popup-close:hover {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .popup-container {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  .popup-toast {
+    max-width: 100%;
   }
 }

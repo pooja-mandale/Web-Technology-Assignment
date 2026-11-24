@@ -66,7 +66,7 @@
             <li>Semantic HTML5 table structure</li>
             <li>Mobile horizontal scrolling</li>
           </ul>
-          <a href="02-Student-Marks/students.html" class="btn btn-primary">
+          <a href="02-Student-Marks/students.html" class="btn btn-primary" onclick="checkAuth(event)">
             Open Student Marks
             <span class="btn-arrow" aria-hidden="true">&rarr;</span>
           </a>
@@ -78,5 +78,43 @@
       <p>Web Technology Assignment 01 &bull; Built with HTML5, CSS3 &amp; Vanilla JavaScript</p>
     </footer>
   </div>
+
+  <script>
+    function showPopup(message, type = "info", duration = 3000) {
+      let container = document.getElementById("popupContainer");
+      if (!container) {
+        container = document.createElement("div");
+        container.id = "popupContainer";
+        container.className = "popup-container";
+        document.body.appendChild(container);
+      }
+      const toast = document.createElement("div");
+      toast.className = `popup-toast toast-${type}`;
+      toast.innerHTML = `
+        <span>${message}</span>
+        <button class="popup-close" onclick="this.parentElement.remove()" aria-label="Close">&times;</button>
+      `;
+      container.appendChild(toast);
+      if (duration > 0) {
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateY(-10px)";
+          setTimeout(() => {
+            if (toast.parentElement) toast.parentElement.removeChild(toast);
+          }, 300);
+        }, duration);
+      }
+    }
+
+    function checkAuth(event) {
+      if (sessionStorage.getItem("isLoggedIn") !== "true") {
+        event.preventDefault();
+        showPopup("🔒 Access Restricted: Please log in first to view student marks.", "error", 2500);
+        setTimeout(() => {
+          window.location.href = "01-Login-Page/index.html";
+        }, 1500);
+      }
+    }
+  </script>
 </body>
 </html>

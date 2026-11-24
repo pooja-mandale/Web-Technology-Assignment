@@ -1,8 +1,49 @@
 /**
- * Module 02 - Student Marks Table
- * Web Technology Assignment 01
- * Searching, Sorting, and Pagination using Vanilla JavaScript
+ * Module 02 - Student Marks Table Interactivity & Protection
+ * Features: Auth Guard, On-Screen Popups, Search filtering, Sorting, and Pagination
+ * Concise, beginner-friendly Vanilla JavaScript
  */
+
+function showPopup(message, type = "info", duration = 3000) {
+  let container = document.getElementById("popupContainer");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "popupContainer";
+    container.className = "popup-container";
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement("div");
+  toast.className = `popup-toast toast-${type}`;
+  toast.innerHTML = `
+    <span>${message}</span>
+    <button class="popup-close" onclick="this.parentElement.remove()" aria-label="Close">&times;</button>
+  `;
+  container.appendChild(toast);
+
+  if (duration > 0) {
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(-10px)";
+      setTimeout(() => {
+        if (toast.parentElement) toast.parentElement.removeChild(toast);
+      }, 300);
+    }, duration);
+  }
+}
+
+// Auth Guard: Restrict access if not logged in
+if (sessionStorage.getItem("isLoggedIn") !== "true") {
+  sessionStorage.setItem("authError", "Access restricted: Please log in first to view student marks.");
+  window.location.href = "../01-Login-Page/index.html";
+}
+
+function logout() {
+  sessionStorage.removeItem("isLoggedIn");
+  sessionStorage.removeItem("currentUser");
+  sessionStorage.setItem("logoutMessage", "You have been logged out successfully.");
+  window.location.href = "../01-Login-Page/index.html";
+}
 
 const students = [
   { roll: 1, name: "Amit", phone: "9876543210", score: 85, interest: "Web Design" },
@@ -19,34 +60,41 @@ const students = [
 
 let query = "", sortKey = "roll", sortAsc = true, page = 1, pageSize = 5;
 
+function getBadgeClass(interest) {
+  const map = {
+    "web design": "interest-web",
+    "ai": "interest-ai",
+    "java": "interest-java",
+    "python": "interest-python",
+    "cloud": "interest-cloud"
+  };
+  return map[interest.toLowerCase()] || "interest-web";
+}
+
 function render() {
-  // 1. Search filter: search by Name, Roll No, or Mobile No
-  const filtered = students.filter(s => {
-    if (!query) return true;
-    const matchName = s.name.toLowerCase().includes(query);
-    const matchRoll = String(s.roll) === query;
-    const matchPhone = query.length >= 3 ? s.phone.includes(query) : false;
-    return matchName || matchRoll || matchPhone;
-  });
+  // 1. Filter
+  const filtered = students.filter(s =>
+    s.name.toLowerCase().includes(query) ||
+    s.interest.toLowerCase().includes(query) ||
+    String(s.roll).includes(query) ||
+    String(s.score).includes(query) ||
+    s.phone.includes(query)
+  );
 
-  // 2. Sorting: Roll No, Student Name, or CET Score (Ascending & Descending)
+  // 2. Sort
   filtered.sort((a, b) => {
-    const valA = a[sortKey], valB = b[sortKey];
-    if (typeof valA === "string") {
-      return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
-    }
-    return sortAsc ? valA - valB : valB - valA;
+    const v1 = a[sortKey], v2 = b[sortKey];
+    if (typeof v1 === "string") return sortAsc ? v1.localeCompare(v2) : v2.localeCompare(v1);
+    return sortAsc ? v1 - v2 : v2 - v1;
   });
 
-  // 3. Pagination: 5 records per page
+  // 3. Paginate
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
-  if (page > totalPages) page = totalPages;
-  if (page < 1) page = 1;
-
+  page = Math.min(Math.max(1, page), totalPages);
   const start = (page - 1) * pageSize;
   const paged = filtered.slice(start, start + pageSize);
 
-  // Render Table Body
+  // 4. Render Table Body
   const tbody = document.getElementById("tableBody");
   if (paged.length === 0) {
     tbody.innerHTML = `<tr><td colspan="5" class="no-records">No students found matching "${query}"</td></tr>`;
@@ -57,18 +105,19 @@ function render() {
         <td class="name-col">${s.name}</td>
         <td class="phone-col">${s.phone}</td>
         <td class="text-center score-col">${s.score}</td>
-        <td><span class="interest-badge interest-${s.interest.toLowerCase().replace(/\\s+/g, '')}">${s.interest}</span></td>
+        <td><span class="interest-badge ${getBadgeClass(s.interest)}">${s.interest}</span></td>
       </tr>
     `).join("");
   }
 
-  // Update Status & Pagination Controls
-  document.getElementById("recordCount").innerText = `Total: ${filtered.length} Records`;
-  document.getElementById("pageInfo").innerText = `Page ${page} of ${totalPages}`;
+  // 5. Update UI Controls & Count
+  document.getElementById("recordCount").innerText = `${filtered.length} Students`;
+  document.getElementById("pageInfo").innerText = `Showing ${filtered.length ? start + 1 : 0}–${Math.min(start + pageSize, filtered.length)} of ${filtered.length}`;
+  document.getElementById("pageNumber").innerText = `Page ${page} of ${totalPages}`;
   document.getElementById("prevBtn").disabled = (page === 1);
   document.getElementById("nextBtn").disabled = (page >= totalPages);
 
-  // Update Sort Indicators
+  // 6. Update Sort Indicators
   document.querySelectorAll("th[data-sort]").forEach(th => {
     const key = th.getAttribute("data-sort");
     th.classList.toggle("sort-active", key === sortKey);
@@ -98,4 +147,12 @@ function changePage(delta) {
   render();
 }
 
-document.addEventListener("DOMContentLoaded", render);
+document.addEventListener("DOMContentLoaded", () => {
+  const user = sessionStorage.getItem("currentUser") || "Student";
+  const badge = document.getElementById("userBadge");
+  if (badge) {
+    badge.innerText = `Logged in: ${user} • Module 02`;
+  }
+  showPopup(`🎉 Welcome, ${user}! Student marks loaded.`, "success", 2500);
+  render();
+});
