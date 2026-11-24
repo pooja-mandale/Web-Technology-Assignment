@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Marks Details - Web Technology Assignment 01</title>
+  <link rel="stylesheet" href="students.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="top-nav">
+      <a href="../index.html" class="back-link">
+        <span aria-hidden="true">&larr;</span> Back to Home
+      </a>
+    </nav>
+
+    <main class="content-container">
+      <header class="page-header">
+        <span class="badge">Module 02</span>
+        <h1>Student Marks Details</h1>
+        <p class="subtitle">Academic records, CET scores, and technical specialization for 10 students.</p>
+      </header>
+
+      <div class="table-card">
+        <!-- Interactive Toolbar Header -->
+        <div class="table-card-header">
+          <div class="header-left">
+            <h2 class="card-title">Student Records</h2>
+            <span id="recordCount" class="record-count">Total: 10 Records</span>
+          </div>
+
+          <!-- Search Input: by name, roll number, or mobile -->
+          <div class="search-box">
+            <span class="search-icon" aria-hidden="true">&#128269;</span>
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Search by name, roll no, mobile..." 
+              oninput="handleSearch(this.value)"
+              autocomplete="off"
+            >
+          </div>
+        </div>
+
+        <!-- Responsive horizontal scroll wrapper -->
+        <div class="table-responsive">
+          <table class="students-table">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center sortable" data-sort="roll" onclick="handleSort('roll')" title="Sort by Roll No">
+                  Roll No <span class="sort-arrow">▲</span>
+                </th>
+                <th scope="col" class="sortable" data-sort="name" onclick="handleSort('name')" title="Sort by Student Name">
+                  Student Name <span class="sort-arrow">↕</span>
+                </th>
+                <th scope="col">Mob No</th>
+                <th scope="col" class="text-center sortable" data-sort="score" onclick="handleSort('score')" title="Sort by CET Score">
+                  CET Score <span class="sort-arrow">↕</span>
+                </th>
+                <th scope="col">Area of Interest</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <td class="text-center roll-col">1</td>
+                <td class="name-col">Amit</td>
+                <td class="phone-col">9876543210</td>
+                <td class="text-center score-col">85</td>
+                <td><span class="interest-badge interest-web">Web Design</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">2</td>
+                <td class="name-col">Priya</td>
+                <td class="phone-col">9876543211</td>
+                <td class="text-center score-col">90</td>
+                <td><span class="interest-badge interest-ai">AI</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">3</td>
+                <td class="name-col">Rahul</td>
+                <td class="phone-col">9876543212</td>
+                <td class="text-center score-col">78</td>
+                <td><span class="interest-badge interest-java">Java</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">4</td>
+                <td class="name-col">Neha</td>
+                <td class="phone-col">9876543213</td>
+                <td class="text-center score-col">88</td>
+                <td><span class="interest-badge interest-python">Python</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">5</td>
+                <td class="name-col">Rohan</td>
+                <td class="phone-col">9876543214</td>
+                <td class="text-center score-col">82</td>
+                <td><span class="interest-badge interest-web">Web Design</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">6</td>
+                <td class="name-col">Sneha</td>
+                <td class="phone-col">9876543215</td>
+                <td class="text-center score-col">91</td>
+                <td><span class="interest-badge interest-ai">AI</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">7</td>
+                <td class="name-col">Akash</td>
+                <td class="phone-col">9876543216</td>
+                <td class="text-center score-col">75</td>
+                <td><span class="interest-badge interest-cloud">Cloud</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">8</td>
+                <td class="name-col">Pooja</td>
+                <td class="phone-col">9876543217</td>
+                <td class="text-center score-col">87</td>
+                <td><span class="interest-badge interest-java">Java</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">9</td>
+                <td class="name-col">Om</td>
+                <td class="phone-col">9876543218</td>
+                <td class="text-center score-col">80</td>
+                <td><span class="interest-badge interest-python">Python</span></td>
+              </tr>
+              <tr>
+                <td class="text-center roll-col">10</td>
+                <td class="name-col">Kiran</td>
+                <td class="phone-col">9876543219</td>
+                <td class="text-center score-col">92</td>
+                <td><span class="interest-badge interest-ai">AI</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Bar -->
+        <div class="pagination-bar">
+          <div class="pagination-info">
+            <span id="pageInfo">Page 1 of 2</span>
+          </div>
+
+          <div class="pagination-actions">
+            <button id="prevBtn" class="page-btn" onclick="changePage(-1)" disabled>
+              &larr; Previous
+            </button>
+            <button id="nextBtn" class="page-btn" onclick="changePage(1)">
+              Next &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <p>Module 02 &bull; Web Technology Practical Assignment</p>
+    </footer>
+  </div>
+
+  <script src="students.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page - Web Technology Assignment 01</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="top-nav">
+      <a href="../index.html" class="back-link">
+        <span aria-hidden="true">&larr;</span> Back to Home
+      </a>
+    </nav>
+
+    <main class="login-container">
+      <div class="box">
+        <div class="header-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h2>Login</h2>
+        <p class="box-subtitle">Enter your credentials to continue</p>
+
+        <!-- Demo credentials notice box -->
+        <div class="demo-box" role="note">
+          <span class="demo-badge">Demo Credentials</span>
+          <p class="demo-text">Username: <code>student</code> &bull; Password: <code>1234</code></p>
+          <p class="demo-subtext">(Any non-empty values will also work)</p>
+        </div>
+
+        <form id="loginForm" onsubmit="event.preventDefault(); login();">
+          <div class="form-group">
+            <label for="user" class="visually-hidden">Username or Email</label>
+            <input 
+              id="user" 
+              type="text" 
+              placeholder="Username or Email" 
+              autocomplete="username"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="pass" class="visually-hidden">Password</label>
+            <input 
+              id="pass" 
+              type="password" 
+              placeholder="Password" 
+              autocomplete="current-password"
+            >
+          </div>
+
+          <button type="button" id="loginBtn" onclick="login()">Login</button>
+        </form>
+
+        <p id="msg" role="status" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <footer class="login-footer">
+      <p>Module 01 &bull; Web Technology Practical Assignment</p>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
