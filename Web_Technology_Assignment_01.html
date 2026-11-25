@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Technology Assignment 01</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+      @bottom-center {
+        content: "Page " counter(page);
+        font-family: Arial, sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.45;
+      font-size: 10pt;
+      background: #ffffff;
+    }
+
+    .header-box {
+      border: 1.5px solid #1e40af;
+      border-radius: 8px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .header-box h1 {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #1e3a8a;
+      letter-spacing: -0.01em;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+    }
+
+    .header-box h2 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-size: 8.5pt;
+      border-top: 1px solid #bfdbfe;
+      padding-top: 8px;
+      text-align: left;
+    }
+
+    .meta-item strong {
+      color: #1e3a8a;
+    }
+
+    .q-banner {
+      background: #1e3a8a;
+      color: #ffffff;
+      padding: 6px 12px;
+      font-size: 11pt;
+      font-weight: 700;
+      border-radius: 5px;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .q-text {
+      background: #f8fafc;
+      border-left: 3.5px solid #3b82f6;
+      padding: 8px 12px;
+      font-size: 9pt;
+      font-style: italic;
+      margin-bottom: 10px;
+      border-radius: 0 4px 4px 0;
+      color: #334155;
+    }
+
+    .q-text ul {
+      margin-left: 18px;
+      margin-top: 4px;
+    }
+
+    .section-title {
+      font-weight: 700;
+      color: #1e40af;
+      font-size: 9.5pt;
+      margin: 8px 0 4px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .code-container {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid #2563eb;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      page-break-inside: avoid;
+    }
+
+    .code-header {
+      background: #e2e8f0;
+      padding: 3px 10px;
+      font-size: 8pt;
+      font-weight: 700;
+      color: #1e3a8a;
+      border-bottom: 1px solid #cbd5e1;
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    pre {
+      padding: 8px 12px;
+      margin: 0;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 8pt;
+      line-height: 1.35;
+      color: #0f172a;
+      white-space: pre-wrap;
+    }
+
+    .output-box {
+      border: 1px solid #93c5fd;
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: #f0f7ff;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .output-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 6px;
+    }
+
+    /* Output Table */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin-top: 6px;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    table.data-table th, table.data-table td {
+      padding: 6px 10px;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #1e3a8a;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 8pt;
+      letter-spacing: 0.04em;
+    }
+
+    table.data-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .badge-interest {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-size: 7.5pt;
+      font-weight: 600;
+    }
+    .badge-web { background: #e0f2fe; color: #0369a1; }
+    .badge-ai { background: #f3e8ff; color: #6b21a8; }
+    .badge-java { background: #ffedd5; color: #c2410c; }
+    .badge-python { background: #dcfce7; color: #15803d; }
+    .badge-cloud { background: #e0e7ff; color: #4338ca; }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .box-model-diagram {
+      border: 2px dashed #3b82f6;
+      background: #eff6ff;
+      padding: 10px;
+      margin: 8px 0;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 8.5pt;
+      font-weight: 600;
+    }
+
+    .box-inner {
+      border: 2px solid #2563eb;
+      background: #dbeafe;
+      padding: 8px;
+      margin: 6px auto;
+      max-width: 80%;
+    }
+
+    .box-content {
+      border: 2px solid #1e40af;
+      background: #ffffff;
+      padding: 6px;
+      color: #1e3a8a;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 8pt;
+      color: #64748b;
+      margin-top: 15px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER BANNER -->
+  <div class="header-box">
+    <h1>Web Technology Laboratory</h1>
+    <h2>Assignment 01: Questions & Answers (With Code & Output)</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><strong>Student Name:</strong> Someshwar Holkar</div>
+      <div class="meta-item"><strong>Subject:</strong> Web Technology (Practical)</div>
+      <div class="meta-item"><strong>GitHub Repo:</strong> github.com/holkar-somesh01/Web-Technology</div>
+      <div class="meta-item"><strong>Live URL:</strong> holkar-somesh01.github.io/Web-Technology</div>
+    </div>
+  </div>
+
+  <!-- QUESTION 1 -->
+  <div class="q-banner">Question 01: GitHub Repository & Login Page Implementation</div>
+  <div class="q-text">
+    <strong>1. Create a github account. Create a repository named "Web Technology".</strong>
+    <ul>
+      <li>Create a login page using html, css and javascript (index.html, style.css, main.js).</li>
+      <li>Upload it in your repository.</li>
+      <li>Write those programs with output in your Assignment Book.</li>
+      <li>Write down the link of your github assignment.</li>
+    </ul>
+  </div>
+
+  <p style="font-size: 8.5pt; margin-bottom: 8px;">
+    <strong>Answer & Workflow:</strong> GitHub is a cloud-based Git repository hosting platform. The repository was created at <code>https://github.com/holkar-somesh01/Web-Technology</code>. The Login Page was developed in <code>01-Login-Page/</code> using semantic HTML5 for layout, CSS3 for centered box styling, and Vanilla JavaScript for client-side input validation.
+  </p>
+
+  <div class="code-container">
+    <div class="code-header">01-Login-Page/index.html (HTML5 Structure)</div>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Login Page&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="box"&gt;
+    &lt;h2&gt;Login&lt;/h2&gt;
+    &lt;input id="user" type="text" placeholder="Username"&gt;
+    &lt;input id="pass" type="password" placeholder="Password"&gt;
+    &lt;button type="button" onclick="login()"&gt;Login&lt;/button&gt;
+    &lt;p id="msg"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;script src="main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <div class="code-container">
+    <div class="code-header">01-Login-Page/style.css (CSS3 Box Model & Styling)</div>
+<pre>body {
+  font-family: Arial, sans-serif;
+  background: #e8f0ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.box {
+  width: 280px;
+  background: #ffffff;
+  padding: 25px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+input, button {
+  width: 90%;
+  padding: 9px;
+  margin: 7px 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input { border: 1px solid #cbd5e1; }
+button { background: #2457a7; color: white; border: none; font-weight: bold; cursor: pointer; }
+#msg { font-weight: bold; font-size: 13px; margin-top: 10px; }</pre>
+  </div>
+
+  <div class="code-container">
+    <div class="code-header">01-Login-Page/main.js (Vanilla JavaScript Form Validation)</div>
+<pre>function login() {
+  let u = document.getElementById("user").value.trim();
+  let p = document.getElementById("pass").value.trim();
+  let msg = document.getElementById("msg");
+
+  if (u && p) {
+    msg.innerText = "Login details entered!";
+    msg.style.color = "#047857";
+  } else {
+    msg.innerText = "Enter username and password.";
+    msg.style.color = "#b91c1c";
+  }
+}</pre>
+  </div>
+
+  <div class="output-box">
+    <div class="output-title">Expected Output for Question 01:</div>
+    <p style="font-size: 8.5pt;">
+      A clean, centered card with <strong>Username</strong> and <strong>Password</strong> input fields and a <strong>Login</strong> button.<br>
+      • <strong>Case 1 (Both fields entered):</strong> Clicking Login displays <span style="color: #047857; font-weight: 700;">"Login details entered!"</span>.<br>
+      • <strong>Case 2 (Either field empty):</strong> Clicking Login displays <span style="color: #b91c1c; font-weight: 700;">"Enter username and password."</span>.
+    </p>
+  </div>
+
+  <!-- PAGE BREAK FOR QUESTION 2 -->
+  <div class="page-break"></div>
+
+  <!-- QUESTION 2 -->
+  <div class="q-banner">Question 02: Student Marks Table Implementation</div>
+  <div class="q-text">
+    <strong>2. Create a webpage for Students, showing the marks of 10 students in given format.</strong>
+    <ul>
+      <li>Roll No | Student Name | Mob No | CET Score | Area of Interest</li>
+      <li>Use Table tag.</li>
+      <li>Upload the webpage in your repository.</li>
+      <li>Write the programs in the assignment book.</li>
+      <li>Write down the link of your github assignment.</li>
+    </ul>
+  </div>
+
+  <p style="font-size: 8.5pt; margin-bottom: 8px;">
+    <strong>Answer & Implementation:</strong> The HTML <code>&lt;table&gt;</code> element structures two-dimensional tabular data. Semantic components used: <code>&lt;thead&gt;</code> (header row), <code>&lt;tbody&gt;</code> (data records), <code>&lt;tr&gt;</code> (row), <code>&lt;th&gt;</code> (column header), and <code>&lt;td&gt;</code> (table data cell).
+  </p>
+
+  <div class="code-container">
+    <div class="code-header">02-Student-Marks/students.html (HTML5 Table Structure)</div>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Student Marks&lt;/title&gt;
+  &lt;link rel="stylesheet" href="students.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;Student Marks Details&lt;/h2&gt;
+  &lt;div class="table-container"&gt;
+    &lt;table border="1" cellpadding="7"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Roll No&lt;/th&gt;&lt;th&gt;Student Name&lt;/th&gt;&lt;th&gt;Mob No&lt;/th&gt;&lt;th&gt;CET Score&lt;/th&gt;&lt;th&gt;Area of Interest&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;Amit&lt;/td&gt;&lt;td&gt;9876543210&lt;/td&gt;&lt;td&gt;85&lt;/td&gt;&lt;td&gt;Web Design&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;Priya&lt;/td&gt;&lt;td&gt;9876543211&lt;/td&gt;&lt;td&gt;90&lt;/td&gt;&lt;td&gt;AI&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;Rahul&lt;/td&gt;&lt;td&gt;9876543212&lt;/td&gt;&lt;td&gt;78&lt;/td&gt;&lt;td&gt;Java&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;Neha&lt;/td&gt;&lt;td&gt;9876543213&lt;/td&gt;&lt;td&gt;88&lt;/td&gt;&lt;td&gt;Python&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;Rohan&lt;/td&gt;&lt;td&gt;9876543214&lt;/td&gt;&lt;td&gt;82&lt;/td&gt;&lt;td&gt;Web Design&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;Sneha&lt;/td&gt;&lt;td&gt;9876543215&lt;/td&gt;&lt;td&gt;91&lt;/td&gt;&lt;td&gt;AI&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;Akash&lt;/td&gt;&lt;td&gt;9876543216&lt;/td&gt;&lt;td&gt;75&lt;/td&gt;&lt;td&gt;Cloud&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;Pooja&lt;/td&gt;&lt;td&gt;9876543217&lt;/td&gt;&lt;td&gt;87&lt;/td&gt;&lt;td&gt;Java&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;Om&lt;/td&gt;&lt;td&gt;9876543218&lt;/td&gt;&lt;td&gt;80&lt;/td&gt;&lt;td&gt;Python&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;Kiran&lt;/td&gt;&lt;td&gt;9876543219&lt;/td&gt;&lt;td&gt;92&lt;/td&gt;&lt;td&gt;AI&lt;/td&gt;&lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+  </div>
+
+  <div class="output-box">
+    <div class="output-title">Output for Question 02 (Tabular Display of 10 Students):</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Roll No</th>
+          <th>Student Name</th>
+          <th>Mob No</th>
+          <th>CET Score</th>
+          <th>Area of Interest</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Amit</strong></td><td>9876543210</td><td style="color:#2563eb; font-weight:700;">85</td><td><span class="badge-interest badge-web">Web Design</span></td></tr>
+        <tr><td>2</td><td><strong>Priya</strong></td><td>9876543211</td><td style="color:#2563eb; font-weight:700;">90</td><td><span class="badge-interest badge-ai">AI</span></td></tr>
+        <tr><td>3</td><td><strong>Rahul</strong></td><td>9876543212</td><td style="color:#2563eb; font-weight:700;">78</td><td><span class="badge-interest badge-java">Java</span></td></tr>
+        <tr><td>4</td><td><strong>Neha</strong></td><td>9876543213</td><td style="color:#2563eb; font-weight:700;">88</td><td><span class="badge-interest badge-python">Python</span></td></tr>
+        <tr><td>5</td><td><strong>Rohan</strong></td><td>9876543214</td><td style="color:#2563eb; font-weight:700;">82</td><td><span class="badge-interest badge-web">Web Design</span></td></tr>
+        <tr><td>6</td><td><strong>Sneha</strong></td><td>9876543215</td><td style="color:#2563eb; font-weight:700;">91</td><td><span class="badge-interest badge-ai">AI</span></td></tr>
+        <tr><td>7</td><td><strong>Akash</strong></td><td>9876543216</td><td style="color:#2563eb; font-weight:700;">75</td><td><span class="badge-interest badge-cloud">Cloud</span></td></tr>
+        <tr><td>8</td><td><strong>Pooja</strong></td><td>9876543217</td><td style="color:#2563eb; font-weight:700;">87</td><td><span class="badge-interest badge-java">Java</span></td></tr>
+        <tr><td>9</td><td><strong>Om</strong></td><td>9876543218</td><td style="color:#2563eb; font-weight:700;">80</td><td><span class="badge-interest badge-python">Python</span></td></tr>
+        <tr><td>10</td><td><strong>Kiran</strong></td><td>9876543219</td><td style="color:#2563eb; font-weight:700;">92</td><td><span class="badge-interest badge-ai">AI</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGE BREAK FOR THEORY QUESTIONS -->
+  <div class="page-break"></div>
+
+  <!-- QUESTION 3 -->
+  <div class="q-banner">Question 03: CSS Box Model Concept</div>
+  <div class="q-text">
+    <strong>3. Explain the concept of Box model in CSS.</strong>
+  </div>
+  <p style="font-size: 8.5pt; margin-bottom: 6px;">
+    <strong>Answer:</strong> Every HTML element is represented as a rectangular box. The CSS Box Model governs how elements occupy space on a webpage through four hierarchical layers:
+  </p>
+
+  <div class="box-model-diagram">
+    MARGIN (Outer transparent spacing between elements)
+    <div class="box-inner">
+      BORDER (Line enclosing the padding and content)
+      <div class="box-inner" style="background:#bfdbfe;">
+        PADDING (Inner transparent space around content)
+        <div class="box-content">
+          CONTENT (Actual text, image, or video)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-container">
+    <div class="code-header">CSS Box Model Syntax</div>
+<pre>div.box-example {
+  width: 250px;           /* Content Area Width */
+  padding: 15px;          /* Space between content and border */
+  border: 2px solid #000; /* Border surrounding padding */
+  margin: 20px;           /* Space outside border from other elements */
+  box-sizing: border-box; /* Includes padding & border inside total width */
+}</pre>
+  </div>
+
+  <!-- QUESTION 4 -->
+  <div class="q-banner">Question 04: JavaScript Array, Object & Function</div>
+  <div class="q-text">
+    <strong>4. Explain the concept of array, object and function in javascript.</strong>
+  </div>
+  <p style="font-size: 8.5pt; margin-bottom: 6px;">
+    <strong>Answer:</strong>
+  </p>
+  <ul style="font-size: 8.5pt; margin-left: 20px; margin-bottom: 8px;">
+    <li><strong>1. Array:</strong> An ordered, zero-indexed data structure storing multiple elements under a single variable. (e.g. <code>let fruits = ["Apple", "Mango", "Banana"];</code>).</li>
+    <li><strong>2. Object:</strong> A structured data collection storing key-value pairs representing entity properties. (e.g. <code>let student = { name: "Amit", rollNo: 1, cetScore: 85 };</code>).</li>
+    <li><strong>3. Function:</strong> A reusable block of code that performs an action when executed/invoked. (e.g. <code>function add(a, b) { return a + b; }</code>).</li>
+  </ul>
+
+  <!-- QUESTION 5 -->
+  <div class="q-banner">Question 05: CSS Selectors with Examples</div>
+  <div class="q-text">
+    <strong>5. Write different css selectors with example.</strong>
+  </div>
+  <table class="data-table" style="margin-bottom: 12px;">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Selector Type</th>
+        <th style="width: 35%;">Syntax Example</th>
+        <th style="width: 40%;">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Element Selector</strong></td><td><code>p { color: blue; }</code></td><td>Selects all &lt;p&gt; elements on the page.</td></tr>
+      <tr><td><strong>Class Selector</strong></td><td><code>.box { background: #fff; }</code></td><td>Selects elements with <code>class="box"</code> using a dot <code>.</code></td></tr>
+      <tr><td><strong>ID Selector</strong></td><td><code>#user { border: 1px solid; }</code></td><td>Selects the unique element with <code>id="user"</code> using hash <code>#</code></td></tr>
+      <tr><td><strong>Universal Selector</strong></td><td><code>* { box-sizing: border-box; }</code></td><td>Selects every element across the document.</td></tr>
+      <tr><td><strong>Grouping Selector</strong></td><td><code>h1, h2, h3 { color: navy; }</code></td><td>Applies identical styles to multiple tags separated by commas.</td></tr>
+      <tr><td><strong>Descendant Selector</strong></td><td><code>div p { font-size: 14px; }</code></td><td>Selects all &lt;p&gt; elements nested anywhere inside &lt;div&gt;.</td></tr>
+      <tr><td><strong>Child Selector</strong></td><td><code>ul > li { list-style: none; }</code></td><td>Selects only immediate direct child &lt;li&gt; elements inside &lt;ul&gt;.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer-note">
+    Web Technology Practical Assignment 01 &bull; Someshwar Holkar &bull; All 5 Questions Complete
+  </div>
+
+</body>
+</html>
