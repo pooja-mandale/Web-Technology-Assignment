@@ -317,7 +317,7 @@ git push origin main
 
 Host the assignment live on the web free through GitHub Pages:
 
-1. Open your repository at [github.com/holkar-somesh01/Web-Technology](https://github.com/holkar-somesh01/Web-Technology).
+1. Open your repository at [github.com/pooja-mandale/Web-Technology-Assignment](https://github.com/pooja-mandale/Web-Technology-Assignment).
 2. Click on **Settings** in the top navigation bar.
 3. In the left menu under **Code and automation**, click **Pages**.
 4. Under **Build and deployment**:
@@ -325,7 +325,7 @@ Host the assignment live on the web free through GitHub Pages:
    - **Branch:** Select `main` & `/(root)`.
    - Click **Save**.
 5. After 1 to 2 minutes, GitHub will generate your live URL:
-   > `https://holkar-somesh01.github.io/Web-Technology/`
+   > `https://pooja-mandale.github.io/Web-Technology-Assignment/`
 
 ---
 
